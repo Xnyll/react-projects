@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaAngleDoubleRight } from 'react-icons/fa';
 
-const url = 'https://cors-anywhere.herokuapp.com/https://course-api.com/react-tabs-project';
+const url = 'https://cors-anywhere.herokuapp.com/https://course-api.com/react-tabs-project'; //Have to go to this site and get temporary access for data to work
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -40,19 +40,39 @@ function App() {
     );
   }
 
+  const { company, dates, duties, title } = jobs[value];
   return (
-    <section className='section jobs'>
-      <h2>Jobs</h2>
-      <div className='jobs-center'>
-        {jobs.map((job, index) => {
-          return (
-            <article key={job.id} className='job'>
-              <h3>{job.company}</h3>
-              <p>{job.title}</p>
-              <FaAngleDoubleRight />
-            </article>
-          );
-        })}
+    <section className='section'>
+      <div className='title'>
+        <h2>experience</h2>
+        <div className="underline"></div>
+      </div>
+      <div className="jobs-center">
+        {/* {btn container} */}
+        <div className="btn-container">
+          {jobs.map((job, index) => {
+            return (
+            <button
+              key={job.id}
+              onClick={() => setValue(index)}
+              className={`job-btn ${index === value && 'active-btn'}`}
+            >
+              {job.company}</button>
+            );
+          })}
+        </div>
+        {/* {job info} */}
+        <article className='job-info'>
+          <h3>{title}</h3>
+          <h4>{company}</h4>
+          <p className="job-date">{dates}</p>
+          {duties.map((duty, index) => {
+            return <div key={index} className='job-desc'>
+              <FaAngleDoubleRight className='job-icon' />
+              <p>{duty}</p>
+            </div>
+          })}
+        </article>
       </div>
     </section>
   );
